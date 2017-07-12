@@ -11,8 +11,6 @@ import Foundation
 
 class CollectionViewController: UITableViewController, UISearchBarDelegate {
     
-    //var games:[CollectionEntry] = []
-    
     var searchResults:[CollectionEntry] = []
     var searchActive = false
     @IBOutlet weak var searchBar: UISearchBar!
@@ -27,21 +25,16 @@ class CollectionViewController: UITableViewController, UISearchBarDelegate {
     }
 
     override func viewDidLoad() {
-        let xenogears = CollectionEntry(name: "Xenogears", system: "PS1", isPlaying: true, progress: "Beat Redrum", genre: "JRPG", developer: "Squaresoft", publisher: "Squaresoft", region: "NTSC")
-        ColEntries.games.append(xenogears)
-        PlayingEntries.games.append(xenogears)
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(CollectionViewController.addGame))
         navigationItem.rightBarButtonItem = addButton
         tableView.delegate = self
         tableView.dataSource = self
         searchBar.delegate = self
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int{
@@ -93,7 +86,6 @@ class CollectionViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath){
         if editingStyle == .delete{
             if(ColEntries.games[indexPath.row].isPlaying){
-                //PlayingEntries.games.remove(at: indexPath.row)
                 var i = 0;
                 while(ColEntries.games[indexPath.row].name != PlayingEntries.games[i].name && i < PlayingEntries.games.count){
                     i += 1
@@ -136,7 +128,6 @@ class CollectionViewController: UITableViewController, UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchResults = ColEntries.games.filter({(game) -> Bool in
-            //print(game.name.contains(searchText))
             return game.name.contains(searchText)
         })
         if(searchResults.count == 0){
@@ -146,15 +137,4 @@ class CollectionViewController: UITableViewController, UISearchBarDelegate {
         }
         self.tableView.reloadData()
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
