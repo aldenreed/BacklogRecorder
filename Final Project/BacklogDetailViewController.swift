@@ -42,7 +42,6 @@ class BacklogDetailViewController: UIViewController, UITextFieldDelegate {
                 self.regionField.text = region
             }
         }
-        // Do any additional setup after loading the view.
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -68,18 +67,14 @@ class BacklogDetailViewController: UIViewController, UITextFieldDelegate {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func moveToCollection(_ sender: Any) {
         let alertController = UIAlertController(title: "Move to Collection", message: "This will add the game to the collection and delete it from the backlog.", preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Cancel", style: .cancel){ _ in
-            //NSLog("The \"Okay/Cancel\" alert's cancel action occured.")
         }
         let ok = UIAlertAction(title: "OK", style: .default){ _ in
-            //NSLog("The \"Okay/Cancel\" alert's cancel action occured.")
             BackEntries.games.remove(at: BackEntries.games.index(of: self.entry!)!)
-            //BacklogTableViewController.tableView.deleteRows(at: )
             let newEntry = CollectionEntry(name: self.entry!.name, system: self.entry!.system, isPlaying: false, progress: "", genre: self.entry!.genre, developer: self.entry!.developer, publisher: self.entry!.publisher, region: self.entry!.region)
             ColEntries.games.append(newEntry)
             self.gameField.text = ""
@@ -93,16 +88,4 @@ class BacklogDetailViewController: UIViewController, UITextFieldDelegate {
         alertController.addAction(ok)
         present(alertController, animated: true, completion: nil)
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
